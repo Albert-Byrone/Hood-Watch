@@ -90,3 +90,9 @@ def create_posts(request,hood_id):
     else:
         form =PostForm
     return render(request,'main/post.html',{'form':form})
+
+def join_hood(request,id):
+    neighbourhood = get_object_or_404(NeighbourHood,id=id)
+    request.user.profile.neighbourhood=neighbourhood
+    request.user.profile.save()
+    return redirect('home')
