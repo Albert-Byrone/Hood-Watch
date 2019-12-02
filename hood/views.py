@@ -117,3 +117,18 @@ def edit_profile(request,username):
             form = UpdateProfileForm(instance=request.user.profile)
         return render(request,'profile/editprof.html',{'form':form})
 
+def search_business(request):
+    if request.method == 'GET':
+        name = request.GET.get("title")
+        results = Business.objects.filter(name__icontains=name).all()
+        print(results)
+        message = f'name'
+        params = {
+            'results': results,
+            'message': message
+        }
+        return render(request, 'results.html', params)
+    else:
+        message = "You haven't searched for any Business category"
+    return render(request, "results.html")
+
