@@ -24,5 +24,19 @@ class NeighbourHood(models.Model):
         return f"{self.name}"
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="profile")
+    name = models.CharField(max_length=30)
+    bio = models.TextField()
+    prof_picture = models.ImageField(upload_to="images",default="test.png")
+    location = models.CharField(max_length=60)
+    neighbourhood = models.ForeignKey(NeighbourHood,on_delete=models.SET_NULL,null=True,blank=True,related_name="member")
 
-# Create your models here.
+    @receiver(post_save,sender=User)
+    def create_user_profile(sender,instance,created,**kwargs):
+        if created:
+            Profile.objects.create(user =instance)
+    @receiver(post_save,sender=User)
+    def create_user_profile(sender,instance,created,**kwargs):
+        instance.profile.save()
+
