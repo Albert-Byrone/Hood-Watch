@@ -29,5 +29,12 @@ def signup(request):
         form = SignupForm()
     return render(request, 'registration/registration_form.html', {'form': form})
 
+def home(request):
+    all_hoods = NeighbourHood.objects.all()
+    all_hoods=all_hoods[::-1]
+    context={
+        'all_hoods':all_hoods
+    }
+    return render(request,'main/home.html',context)
 
 # Create your views here.
