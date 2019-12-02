@@ -103,3 +103,6 @@ def leave_hood(request,id):
     request.user.profile.save()
     return redirect('home')
 
+def profile(request,username):
+    return render(request,'profile/prof.html')
+
