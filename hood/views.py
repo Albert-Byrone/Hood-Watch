@@ -132,3 +132,6 @@ def search_business(request):
         message = "You haven't searched for any Business category"
     return render(request, "results.html")
 
+
+
+    
